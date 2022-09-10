@@ -1,21 +1,17 @@
+from inspect import _Object
 import os
-
+import random
 import pygame as pg
 
 pg.init()
+pg.font.init()
 
 BLACK = (0, 0, 0)
 WHITE = (200, 200, 200)
 WINDOW_HEIGHT = 800
 WINDOW_WIDTH = 400
-
-# SPECIFY THE COLORS OF THE TETRIS BLOCKS
-RED = (255,0,0)
-GREEN = (0,128,0)
-LIGHT_SEA_GREEN = (32,178,170)
-MIDNIGHT_BLUE =	(25,25,112)
-BLUE_VIOLET = (138,43,226)
-
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 1200
 
 def load_game():
     global SCREEN, CLOCK
@@ -144,5 +140,20 @@ def get_blocks():
         '.00..',
         '..0..',
         '.....']]
+
+shapes = [S, Z, I, O, J, L, T]
+shape_colors = [(0,128,0), (255, 0, 0), (32,178,170), (25,25,112), (255, 165, 0), (138,43,226), (128, 0, 128)]
         
-        
+
+class Piece(Object):
+    rows = 20 #y coord
+    columns = 10 # x coord
+
+    # create special method for instance of pieces/shapes where each shape has a color and coordinates in grid 
+    def __init__(self, column, row, shape):
+            self.x = column
+            self.y = row
+            self.shape = shape
+            self.color =  shape_colors[shapes.index(shape)]
+            self.rotation = 0 # specifies the starting number to rotate with, the range is from 0 to 3 rotations
+
